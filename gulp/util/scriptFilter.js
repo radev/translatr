@@ -1,3 +1,5 @@
+'use strict';
+
 var path = require('path');
 
 // Filters out non .js files. Prevents
