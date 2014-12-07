@@ -8,6 +8,7 @@ var gulp = require('gulp');
 var rename = require('gulp-rename');
 var rev = require('gulp-rev');
 var source = require('vinyl-source-stream');
+var reactify = require('reactify');
 
 // Vendor
 gulp.task('vendor', function() {
@@ -28,6 +29,7 @@ gulp.task('browserify', function() {
     .external('lodash')
     .external('backbone')
     .transform(partialify) // Transform to allow requireing of templates
+    .transform(reactify) // React.js
     .bundle()
     .pipe(source('main.js'))
     .pipe(gulp.dest(config.dist + '/scripts/'));

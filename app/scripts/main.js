@@ -7,8 +7,15 @@
 
 'use strict';
 
-var App = require('./app.js');
+var $ = require('jquery');
+var React = require('react');
+var Translatr = require('./views/translatr.jsx');
 
-var app = new App();
+var translatrEl = $('#translatr')[0];
 
-app.beep();
+var DEMO = require('./demo.json');
+
+if (translatrEl) {
+  React.render(<Translatr data={DEMO} />, translatrEl);
+}
+

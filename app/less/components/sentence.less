@@ -1,0 +1,16 @@
+.sentence {
+  @bg: #ededed;
+  @border: darken(@bg, 10%);
+
+  display: inline;
+  background: @bg;
+  border: 1px solid @border;
+  padding: .3em;
+  margin: 0 .5em;
+  cursor: pointer;
+
+  &:first-child {
+    padding-left: 0;
+    margin-left: 0;
+  }
+}
