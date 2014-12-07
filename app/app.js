@@ -29,6 +29,9 @@ app.use(bodyParser.json({}));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(config.static));
+if (app.get('env') === 'development') {
+  app.use(require('connect-livereload')({port: config.livereloadPort}));
+}
 
 app.use('/', routes);
 //app.use('/users', users);
@@ -45,7 +48,6 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(require('connect-livereload')({ port: config.livereloadPort }));
   var PrettyError = require('pretty-error');
   var pe = new PrettyError();
   Promise.longStackTraces();

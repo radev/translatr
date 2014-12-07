@@ -5,6 +5,7 @@ var production = (process.env.NODE_ENV === 'production');
 
 var config = module.exports = {
   dist: production ? 'dist' : '.tmp',
+  livereloadPort: 35729,
   // #### Connection details
   dbConfig: {
     host: process.env.RDB_HOST || 'localhost',
