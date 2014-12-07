@@ -5,7 +5,7 @@ var gulp = require('gulp');
 var livereload = require('gulp-livereload');
 
 // Watch
-gulp.task('watch', ['connect', 'serve'], function () {
+gulp.task('watch', ['build'], function () {
   var server = livereload();
     // Watch for changes in `app` folder
     gulp.watch([

@@ -1,2 +1,45 @@
-<h1>{{error.status}}</h1>
-<pre>{{error.stack}}</pre>
+<style>
+  .red {
+    color: red;
+  }
+
+  dt, dd {
+    font-family: monospace;
+    line-height: 1.5em;
+    margin-left: 2em;
+  }
+  dt {
+    font-size: 1.2em;
+    margin-top: 1em;
+  }
+  .file{
+    color: #245269;
+  }
+  .line {
+    color: green;
+  }
+  .custom {
+    color: #888;
+  }
+  dd {
+    color: #aaa;
+    margin-left: 2em;
+  }
+</style>
+<body>
+<h1><span class="red">{{ error.header.title.kind }}</span>: {{ error.header.message }}</h1>
+<dl>
+{% for item in error.trace %}
+  {% if item.item.custom %}
+    <dt><span class="custom">{{ item.item.custom }}</span></dt>
+  {% else %}
+    {% set header = item.item.header %}
+    <dt><span class="file">{{ header.pointer.file }}</span>:
+      <span class="line">{{ header.pointer.line }}</span>
+      <span class="function">{{ header.what }}</span>
+    </dt>
+    <dd>{{ item.item.footer.addr }}</dd>
+  {% endif %}
+{% endfor %}
+</dl>
+</body>
