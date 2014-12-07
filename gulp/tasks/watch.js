@@ -6,18 +6,18 @@ var livereload = require('gulp-livereload');
 
 // Watch
 gulp.task('watch', ['build'], function () {
-  var server = livereload();
-    // Watch for changes in `app` folder
-    gulp.watch([
-        // 'app/jade/**/*.jade',
-        // 'app/*.html',
-        // 'app/scss/**/*.scss',
-        // 'app/scripts/**/*.js',
-        // 'app/images/**/*',
-        '.tmp/**/*'
-    ]).on('change', function(file) {
-      server.changed(file.path);
-    });
+  // var server = livereload();
+  //   // Watch for changes in `app` folder
+  //   gulp.watch([
+  //       // 'app/jade/**/*.jade',
+  //       // 'app/*.html',
+  //       // 'app/scss/**/*.scss',
+  //       // 'app/scripts/**/*.js',
+  //       // 'app/images/**/*',
+  //       '.tmp/**/*'
+  //   ]).on('change', function(file) {
+  //     server.changed(file.path);
+  //   });
 
     // Watch .less files
     gulp.watch('app/less/**/*.less', ['styles']);

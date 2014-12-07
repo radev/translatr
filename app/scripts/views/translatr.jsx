@@ -13,7 +13,7 @@ module.exports = React.createClass({
 
     return {
       model: model,
-      selectedAddr: [1,2,2]
+      selectedAddr: null
     };
   },
 
@@ -26,7 +26,9 @@ module.exports = React.createClass({
       if (!this.isMounted()) return;
 
       this.state.model.applyTranslations();
-      this.setState({});
+      this.setState({
+        selectedAddr: [1,1,2]
+      });
     }, this);
 
 
@@ -62,14 +64,32 @@ module.exports = React.createClass({
     this.setState({ selectedAddr: addr });
   },
 
+  handleEdit: function(text) {
+    var newTrans = [
+      this.state.selectedAddr,
+      [{text: text, userId: 'current user'}]
+    ];
+    var element = this.state.model.getByAddress(this.state.selectedAddr);
+
+    if (element) {
+      this.state.model.applyTranslation(element, newTrans)
+    }
+    this.forceUpdate();
+  },
+
+  handleEditCancel: function() {
+    this.setState({ selectedAddr: null });
+  },
+
   render: function() {
     var form;
     var element = this.state.model.rootElement;
 
     if (this.state.selectedAddr) {
+      var selectedElement = this.state.model.getByAddress(this.state.selectedAddr)
       form =
       <div className="translatr__form">
-        <EditForm selectedAddr={this.state.selectedAddr} />
+        <EditForm element={selectedElement} onCancel={this.handleEditCancel} onEdit={this.handleEdit} />
       </div>;
     }
 
@@ -77,10 +97,6 @@ module.exports = React.createClass({
     return (
       <div className="translatr">
         <div className="translatr__content">
-          <div>
-            selectedAddr={this.state.selectedAddr}
-          </div>
-
           <div className="translatr__sentences">
             <Document element={element}
               onSelect={this.handleSelect}

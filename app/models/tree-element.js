@@ -21,10 +21,16 @@ module.exports = AmpersandModel.extend({
   },
 
   getTranslatedText: function() {
+    var t = this.getLatestTranslation();
+
+    return t ? t : this.originalText;
+  },
+
+  getLatestTranslation: function() {
     if (this.revisions.length) {
       return _.last(this.revisions).text;
     } else {
-      return this.originalText;
+      return '';
     }
   },
 
