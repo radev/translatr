@@ -4,7 +4,8 @@ var EditForm = React.createClass({
 
   getInitialState: function() {
     return {
-      text: ''
+      text: '',
+      selectedElement: null
     };
   },
 
@@ -23,10 +24,10 @@ var EditForm = React.createClass({
   },
 
   render: function() {
-    var element = this.props.element;
-    var trans =  element.getLatestTranslation();
-
-    console.log('trans', trans);
+    // if (this.state.selectedElement) {
+    //   var trans =  element.getLatestTranslation();
+    // }
+    // var element = this.props.element;
 
     return (
       <form className="edit-form">
@@ -34,7 +35,7 @@ var EditForm = React.createClass({
         <div className="translation-text">
           {element.originalText}
         </div>
-        <textarea name="text" placeholder="Enter you translation here" onChange={this.onTextChange}></textarea>
+        <textarea ref="text" placeholder="Enter you translation here" value={this.state.text} onChange={this.onTextChange}></textarea>
         <div>
           Revisions: {element.revisions.length}
         </div>

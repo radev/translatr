@@ -119,6 +119,9 @@ module.exports = React.createClass({
     });
     this.state.user.selectedAddr = addr;
     this.setState({ selectedAddr: addr, user: this.state.user });
+
+    var selectedElement = this.state.model.getByAddress(this.state.selectedAddr);
+    this.refs.editForm.setState({ text: selectedElement.getLatestTranslation() });
   },
 
   handleEdit: function(text) {
@@ -143,10 +146,9 @@ module.exports = React.createClass({
     var element = this.state.model.rootElement;
 
     if (this.state.selectedAddr) {
-      var selectedElement = this.state.model.getByAddress(this.state.selectedAddr)
       form =
       <div className="translatr__form">
-        <EditForm element={selectedElement} onCancel={this.handleEditCancel} onEdit={this.handleEdit} />
+        <EditForm onCancel={this.handleEditCancel} onEdit={this.handleEdit} ref="editForm" />
       </div>;
     }
 
