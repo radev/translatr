@@ -77,7 +77,7 @@ app.use(function(err, req, res, next) { // jshint ignore:line
 
 // Setup database
 db.setup().then(function() {
-  return db.generateTestRecord();
+  //return db.generateTestRecord();
 });
 
 module.exports = app;

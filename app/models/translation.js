@@ -1,12 +1,18 @@
 'use strict';
 
 // Require the lib
-var AmpersandState = require('ampersand-state');
+var AmpersandModel = require('ampersand-model');
 
-var Translation = AmpersandState.extend({
+var Translation = AmpersandModel.extend({
   props: {
+    id: 'string',
     text: 'string',
-    strings: 'array'
+    tree: 'array',
+    translations: 'array'
+  },
+  urlRoot: '/t/d',
+  parse: function () {
+    console.log(this.tree);
   }
 });
 

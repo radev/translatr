@@ -7,15 +7,14 @@
 
 'use strict';
 
-var $ = require('jquery');
 var React = require('react');
 var Translatr = require('./views/translatr.jsx');
-
-var translatrEl = $('#translatr')[0];
+var translatrEl = document.getElementById('translatr'); // jshint ignore:line
+var translationId = window.location.pathname.split('/')[2]; // jshint ignore:line
 
 var DEMO = require('./demo.json');
 
 if (translatrEl) {
-  React.render(<Translatr data={DEMO} />, translatrEl);
+  React.render(React.createElement(Translatr, {data: DEMO, translationId: translationId}), translatrEl);
 }
 

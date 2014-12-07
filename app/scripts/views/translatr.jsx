@@ -4,8 +4,32 @@ var React = require('react');
 
 var Document = require('./document.jsx');
 var EditForm = require('./edit-form.jsx');
+var TranslationModel = require('../../models/translation');
 
 module.exports = React.createClass({
+  getInitialState: function() {
+    var model = new TranslationModel({id: this.props.translationId});
+    return {model: model};
+  },
+
+  loadModelFromServer: function() {
+    this.state.model.fetch();
+  },
+
+  componentDidMount: function() {
+    this.state.model.on('sync', function() {
+      if (!this.isMounted()) {
+        return;
+      }
+      this.setState({});
+    }, this);
+    this.loadModelFromServer();
+  },
+
+  componentWillUnmount: function() {
+    this.state.model.off();
+  },
+
   handleSelect: function(a) {
     alert(a);
   },
@@ -19,7 +43,7 @@ module.exports = React.createClass({
           <br />
 
           <div className="translatr__sentences">
-            <Document data={this.props.data.tree} onSelect={this.handleSelect}  />
+            <Document data={this.props.data.tree} onSelect={this.handleSelect} />
           </div>
           <div className="translatr__form">
             <EditForm />

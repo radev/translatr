@@ -40,6 +40,7 @@
     "vinyl-source-stream": "^0.1.1"
   },
   "dependencies": {
+    "ampersand-model": "^4.0.3",
     "ampersand-state": "^4.4.2",
     "backbone": "^1.1.2",
     "bluebird": "^2.3.11",
