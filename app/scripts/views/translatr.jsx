@@ -69,6 +69,14 @@ module.exports = React.createClass({
          {type: 'newRevision', addr: [1,1,1], revision: RevisionModel json}
          */
         console.log(m);
+        if (m.type==='select') {
+          var user = _.find(_this.users, function(user) {
+            return m.userId===user.id;
+          });
+          if (user) {
+            user.selectedAddr = m.addr;
+          }
+        }
         _this.setState({});
       },
       presence: function(m) {
@@ -109,7 +117,8 @@ module.exports = React.createClass({
         addr: addr
       }
     });
-    this.setState({ selectedAddr: addr });
+    this.state.user.selectedAddr = addr;
+    this.setState({ selectedAddr: addr, user: this.state.user });
   },
 
   handleEdit: function(text) {
@@ -148,7 +157,7 @@ module.exports = React.createClass({
           <div className="translatr__sentences">
             <Document element={element}
               onSelect={this.handleSelect}
-              selectedAddr={this.state.selectedAddr}
+              users={this.state.users}
                />
           </div>
 

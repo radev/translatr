@@ -10,7 +10,8 @@ module.exports = React.createClass({
     elements.forEach(function(item, index){
       renderItems.push(<Para element={item}
         onSelect={this.props.onSelect}
-        selectedAddr={this.props.selectedAddr} />);
+        users={this.props.users}
+      />);
     }, this);
 
     return (

@@ -6,6 +6,7 @@ module.exports = AmpersandState.extend({
   props: {
     id: 'string',
     name: 'string',
-    color: 'string'
+    color: 'string',
+    selectedAddr: 'array'
   }
 });
