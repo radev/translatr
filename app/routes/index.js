@@ -2,6 +2,7 @@
 
 var express = require('express');
 var router = express.Router();
+var util = require('util');
 //var parseText = require('../lib/parse');
 var db = require('../lib/db');
 
@@ -37,7 +38,7 @@ router.get('/t/:id', function(req, res, next) {
     });
 });
 
-router.get('/t/:id/d', function(req, res, next) {
+router.get('/t/d/:id', function(req, res, next) {
   var translationId = req.params.id;
   db.findTranslationById(translationId)
     .then(function(translation) {
@@ -48,6 +49,30 @@ router.get('/t/:id/d', function(req, res, next) {
     }).error(function(err) {
       return next(err);
     });
+});
+
+router.patch('/t/:id', function(req, res, next) {
+  var translationId = req.params.id;
+  var pair = req.body;
+  if (!util.isArray(pair) || pair.length !== 2) {
+    return res.sendStatus(400);
+  }
+  db.findTranslationById(translationId)
+    .error(function() {
+      console.log('error');
+      next();
+    })
+    .then(function(translation) {
+      if (translation === null) {
+        return next();
+      }
+      console.log(pair);
+      return db.addSentenceTranslation(translationId, pair[0], pair[1]);
+    })
+    .then(function() {
+      res.sendStatus(204);
+    });
+
 });
 
 module.exports = router;
