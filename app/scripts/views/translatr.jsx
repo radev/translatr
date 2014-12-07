@@ -1,19 +1,28 @@
 'use strict';
 
 var React = require('react');
-
+var _ = require('underscore');
 var Document = require('./document.jsx');
 var EditForm = require('./edit-form.jsx');
+var Roster = require('./roster.jsx');
 var TranslationModel = require('../../models/translation');
+var UserModel = require('../../models/user');
 var pubnub = require('pubnub');
+var randomColor = require('randomcolor');
 
 module.exports = React.createClass({
   getInitialState: function() {
     var model = new TranslationModel({id: this.props.translationId});
-
+    var user = new UserModel({
+      id: this.props.userId,
+      name: 'User' + _.random(1, 9999),
+      color: randomColor({luminosity: 'dark'})
+    });
     return {
       model: model,
-      selectedAddr: null
+      selectedAddr: null,
+      user: user,
+      users: [user]
     };
   },
 
@@ -22,6 +31,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function() {
+    var _this = this;
     this.state.model.on('sync', function() {
       if (!this.isMounted()) return;
 
@@ -34,7 +44,24 @@ module.exports = React.createClass({
 
     this.loadModelFromServer();
 
-    var _this = this;
+    function getRoster() {
+      pubnub.here_now({
+        channel: _this.props.translationId,
+        state: true,
+        callback: function(response) {
+          var users = _.compact(_.pluck(response.uuids, 'state')).map(function(state) {
+             return new UserModel(state);
+          });
+          users = _.reject(users, function(user) {
+            return user.id===_this.props.userId;
+          });
+          users.unshift(_this.state.user);
+          _this.setState({users:users});
+          console.log(response);
+        }
+      });
+    }
+
     pubnub.subscribe({
       channel: this.props.translationId,
       message: function(m){
@@ -43,13 +70,35 @@ module.exports = React.createClass({
          */
         console.log(m);
         _this.setState({});
-      }
+      },
+      presence: function(m) {
+        getRoster();
+        console.log(m);
+      },
+      connect: getRoster(),
+      //uuid: this.props.userId,
+      heartbeat: 15//, // Consider user left after 15 seconds
+      //state: this.state.user.toJSON()
     });
 
+    pubnub.state({
+      channel: this.props.translationId,
+      uuid: this.props.userId,
+      state: this.state.user.toJSON(),
+      callback: function(m) {
+        console.log(m)
+      },
+      error: function(m) {
+        console.log(m)
+      }
+    });
   },
 
   componentWillUnmount: function() {
     this.state.model.off();
+    pubnub.unsubscribe({
+      channel : this.props.translationId
+    });
   },
 
   handleSelect: function(addr) {
@@ -108,7 +157,7 @@ module.exports = React.createClass({
 
         </div>
         <div className="translatr__bar">
-          lorem
+          <Roster users={this.state.users} />
         </div>
       </div>
     );
