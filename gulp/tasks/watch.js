@@ -23,7 +23,7 @@ gulp.task('watch', ['build'], function () {
     gulp.watch('app/less/**/*.less', ['styles']);
 
     // Watch .js files
-    gulp.watch(['app/scripts/**/*.js', 'app/scripts/**/*.jsx'], ['browserify']);
+    gulp.watch(['app/**/*.js', 'app/scripts/**/*.jsx'], ['browserify']);
 
     // Watch image files
     gulp.watch('app/images/**/*', ['images']);

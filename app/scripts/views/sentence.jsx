@@ -1,19 +1,14 @@
 var React = require('react');
 
 var Sentence = React.createClass({
-  getInitialState: function() {
-    return {
-      isEdit: false
-    };
-  },
-
   handleClick: function(evt) {
-    this.setState({ isEdit: !this.state.isEdit })
-    this.props.onSelect('sss');
+    // this.setState({ isEdit: !this.state.isEdit })
+    this.props.onSelect(this.props.addr);
   },
 
   render: function() {
-    var className = 'sentence' + (this.state.isEdit ? ' sentence--edit' : '');
+    var isEdit = this.props.addr == this.props.selectedAddr;
+    var className = 'sentence' + (isEdit ? ' sentence--edit' : '');
 
     return (
       <span className={className} onClick={this.handleClick}>

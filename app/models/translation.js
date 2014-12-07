@@ -10,10 +10,8 @@ var Translation = AmpersandModel.extend({
     tree: 'array',
     translations: 'array'
   },
-  urlRoot: '/t/d',
-  parse: function () {
-    console.log(this.tree);
-  }
+
+  urlRoot: '/t/d'
 });
 
 module.exports = Translation;

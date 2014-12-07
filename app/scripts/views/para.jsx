@@ -8,8 +8,13 @@ module.exports = React.createClass({
     var renderItems = [];
 
     props.forEach(function(item, index){
+      var addr = this.props.addr + '-' + index;
+
       if (index > 0) {
-        renderItems.push(<Sentence data={item} onSelect={this.props.onSelect} />);
+        renderItems.push(<Sentence data={item}
+          addr={addr}
+          onSelect={this.props.onSelect}
+          selectedAddr={this.props.selectedAddr} />);
       }
     }, this);
 

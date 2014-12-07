@@ -4,10 +4,11 @@ var EditForm = React.createClass({
 
   render: function() {
     return (
-      <form>
-        <p>
-          <textarea name="text" className="translation-text"></textarea>
-        </p>
+      <form className="edit-form">
+        <div className="translation-text">
+        translation-text here
+        </div>
+        <textarea name="text" placeholder="Enter you translation here"></textarea>
 
         <div>
           <button type="button" className="btn btn-default">Cancel</button>

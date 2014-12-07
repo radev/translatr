@@ -9,7 +9,11 @@ var TranslationModel = require('../../models/translation');
 module.exports = React.createClass({
   getInitialState: function() {
     var model = new TranslationModel({id: this.props.translationId});
-    return {model: model};
+
+    return {
+      model: model,
+      selectedAddr: '1-2-2'
+    };
   },
 
   loadModelFromServer: function() {
@@ -30,24 +34,40 @@ module.exports = React.createClass({
     this.state.model.off();
   },
 
-  handleSelect: function(a) {
-    alert(a);
+  handleSelect: function(addr) {
+    this.setState({ selectedAddr: addr });
   },
 
   render: function() {
+    var form;
+
+    var tree = this.state.model.tree || [];
+
+    if (this.state.selectedAddr) {
+      form =
+      <div className="translatr__form">
+        <EditForm selectedAddr={this.state.selectedAddr} />
+      </div>;
+    }
+
+
     return (
       <div className="translatr">
         <div className="translatr__content">
-
-          {this.props.data.text}
-          <br />
+          <div>
+            selectedAddr={this.state.selectedAddr}
+          </div>
 
           <div className="translatr__sentences">
-            <Document data={this.props.data.tree} onSelect={this.handleSelect} />
+            <Document data={tree}
+              onSelect={this.handleSelect}
+              addr='1'
+              selectedAddr={this.state.selectedAddr}
+               />
           </div>
-          <div className="translatr__form">
-            <EditForm />
-          </div>
+
+          {form}
+
         </div>
         <div className="translatr__bar">
           lorem
