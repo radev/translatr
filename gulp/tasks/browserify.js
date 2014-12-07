@@ -1,6 +1,7 @@
 'use strict';
 
 var browserify = require('browserify');
+var browserifyShim = require('browserify-shim');
 var config = require('../config');
 var partialify = require('partialify');
 var gulp = require('gulp');
@@ -30,6 +31,7 @@ gulp.task('browserify', function() {
     .external('backbone')
     .transform(partialify) // Transform to allow requireing of templates
     .transform(reactify) // React.js
+    .transform(browserifyShim)
     .bundle()
     .pipe(source('main.js'))
     .pipe(gulp.dest(config.dist + '/scripts/'));

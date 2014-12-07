@@ -5,6 +5,7 @@ var React = require('react');
 var Document = require('./document.jsx');
 var EditForm = require('./edit-form.jsx');
 var TranslationModel = require('../../models/translation');
+var pubnub = require('pubnub');
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -28,6 +29,18 @@ module.exports = React.createClass({
       this.setState({});
     }, this);
     this.loadModelFromServer();
+
+    var _this = this;
+    pubnub.subscribe({
+      channel: this.props.translationId,
+      message: function(m){
+        /*
+         {addr: [1,1,1], revision: RevisionModel json}
+         */
+        _this.setState({});
+      }
+    });
+
   },
 
   componentWillUnmount: function() {
@@ -35,6 +48,14 @@ module.exports = React.createClass({
   },
 
   handleSelect: function(addr) {
+    pubnub.publish({
+      channel: this.props.translationId,
+      message: {
+        type: 'select',
+        userId: this.props.userId,
+        addr: addr
+      }
+    });
     this.setState({ selectedAddr: addr });
   },
 

@@ -5,6 +5,7 @@ var router = express.Router();
 var util = require('util');
 //var parseText = require('../lib/parse');
 var db = require('../lib/db');
+var pubnub = require('../lib/pubnub');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -70,6 +71,7 @@ router.patch('/t/:id', function(req, res, next) {
       return db.addSentenceTranslation(translationId, pair[0], pair[1]);
     })
     .then(function() {
+      pubnub.publishSentenceTranslation(translationId, pair[0], pair[1]);
       res.sendStatus(204);
     });
 

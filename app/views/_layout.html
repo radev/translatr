@@ -50,11 +50,13 @@
     </div>
 
 
-    <!--
-    Scripts
-    ==================================================
-    Placed at the end of the document so the pages load faster -->
-    <!-- <script src="scripts/app.js"></script> -->
+    <script src=http://cdn.pubnub.com/pubnub.min.js></script>
+    <script type="application/javascript">
+      var pubnub = PUBNUB.init({
+        publish_key: 'pub-c-7ddd488b-c7c9-42e2-93d5-ed4765eddfb0',
+        subscribe_key: 'sub-c-7e4988ce-7d7d-11e4-bfb6-02ee2ddab7fe'
+      });
+    </script>
     <script src="/scripts/vendor.js"></script>
     <script src="/scripts/main.js"></script>
 
