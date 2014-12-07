@@ -35,8 +35,9 @@ module.exports = React.createClass({
       channel: this.props.translationId,
       message: function(m){
         /*
-         {addr: [1,1,1], revision: RevisionModel json}
+         {type: 'newRevision', addr: [1,1,1], revision: RevisionModel json}
          */
+        console.log(m);
         _this.setState({});
       }
     });
