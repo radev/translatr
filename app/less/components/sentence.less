@@ -1,6 +1,7 @@
 .sentence {
   @bg: #ededed;
-  @border: darken(@bg, 10%);
+  @border: darken(@bg, 30%);
+  @shadow: lighten(yellow, 30%);
 
   display: inline;
   background: @bg;
@@ -12,5 +13,13 @@
   &:first-child {
     padding-left: 0;
     margin-left: 0;
+  }
+
+  &:hover {
+    box-shadow: 0 0 2px @shadow;
+  }
+
+  &--edit {
+    background: yellow;
   }
 }

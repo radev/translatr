@@ -2,16 +2,15 @@
 
 var React = require('react');
 
-var ParaList = require('./para-list.jsx');
+var Document = require('./document.jsx');
 var EditForm = require('./edit-form.jsx');
 
 module.exports = React.createClass({
+  handleSelect: function(a) {
+    alert(a);
+  },
+
   render: function() {
-    var paras = this.props.data.tree;
-    paras.splice(0, 1);
-
-    console.log(paras);
-
     return (
       <div className="translatr">
         <div className="translatr__content">
@@ -20,7 +19,7 @@ module.exports = React.createClass({
           <br />
 
           <div className="translatr__sentences">
-            <ParaList data={paras}  />
+            <Document data={this.props.data.tree} onSelect={this.handleSelect}  />
           </div>
           <div className="translatr__form">
             <EditForm />
