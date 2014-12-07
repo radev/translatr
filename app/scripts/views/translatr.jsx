@@ -13,7 +13,7 @@ module.exports = React.createClass({
 
     return {
       model: model,
-      selectedAddr: '1-2-2'
+      selectedAddr: [1,2,2]
     };
   },
 
@@ -23,11 +23,13 @@ module.exports = React.createClass({
 
   componentDidMount: function() {
     this.state.model.on('sync', function() {
-      if (!this.isMounted()) {
-        return;
-      }
+      if (!this.isMounted()) return;
+
+      this.state.model.applyTranslations();
       this.setState({});
     }, this);
+
+
     this.loadModelFromServer();
 
     var _this = this;
@@ -62,8 +64,7 @@ module.exports = React.createClass({
 
   render: function() {
     var form;
-
-    var tree = this.state.model.tree || [];
+    var element = this.state.model.rootElement;
 
     if (this.state.selectedAddr) {
       form =
@@ -81,9 +82,8 @@ module.exports = React.createClass({
           </div>
 
           <div className="translatr__sentences">
-            <Document data={tree}
+            <Document element={element}
               onSelect={this.handleSelect}
-              addr='1'
               selectedAddr={this.state.selectedAddr}
                />
           </div>

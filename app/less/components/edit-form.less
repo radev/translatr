@@ -2,6 +2,7 @@
   // @bg: #ededed;
   // @border: darken(@bg, 30%);
   // @shadow: lighten(yellow, 30%);
+  margin-top: 1em;
 
   & textarea {
     height: 5em;
@@ -11,5 +12,11 @@
 
   & button {
     margin-right: 1em;
+  }
+}
+
+@media (max-width: 990px) {
+  .edit-form textarea {
+    width: 100%;
   }
 }
