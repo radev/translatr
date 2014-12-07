@@ -72,8 +72,7 @@ module.exports = React.createClass({
         _this.setState({});
       },
       presence: function(m) {
-        getRoster();
-        console.log(m);
+        setTimeout(getRoster, 100);
       },
       connect: getRoster(),
       //uuid: this.props.userId,
