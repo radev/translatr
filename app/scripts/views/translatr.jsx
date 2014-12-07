@@ -70,7 +70,7 @@ module.exports = React.createClass({
          */
         console.log(m);
         if (m.type==='select') {
-          var user = _.find(_this.users, function(user) {
+          var user = _.find(_this.state.users, function(user) {
             return m.userId===user.id;
           });
           if (user) {
