@@ -27,7 +27,7 @@ var EditForm = React.createClass({
     // if (this.state.selectedElement) {
     //   var trans =  element.getLatestTranslation();
     // }
-    // var element = this.props.element;
+    var element = this.props.element;
 
     return (
       <form className="edit-form">

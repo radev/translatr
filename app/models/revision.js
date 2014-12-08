@@ -12,6 +12,15 @@ module.exports = AmpersandModel.extend({
     userId: 'string'
   },
 
-  urlRoot: '/t'
+  urlRoot: '/t',
+
+  toJSON: function() {
+    var data = [
+      this.addr,
+      [{text: this.text, userId: this.userId}]
+    ];
+
+    return data;
+  }
 
 });

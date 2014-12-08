@@ -6,6 +6,7 @@ var Document = require('./document.jsx');
 var EditForm = require('./edit-form.jsx');
 var Roster = require('./roster.jsx');
 var TranslationModel = require('../../models/translation');
+var Revision = require('../../models/revision');
 var UserModel = require('../../models/user');
 var pubnub = require('pubnub');
 var randomColor = require('randomcolor');
@@ -65,23 +66,32 @@ module.exports = React.createClass({
     pubnub.subscribe({
       channel: this.props.translationId,
       message: function(m){
-        /*
-         {type: 'newRevision', addr: [1,1,1], revision: RevisionModel json}
-         */
-        console.log(m);
+        console.log('>>> incomimng', m);
+
         if (m.type==='select') {
-          var user = _.find(_this.state.users, function(user) {
+          var user = _.find(_this.users, function(user) {
             return m.userId===user.id;
           });
           if (user) {
             user.selectedAddr = m.addr;
           }
         }
-        _this.setState({});
+
+        if (m.type === 'newRevision') {
+          var element = _this.state.model.getByAddress(_this.state.selectedAddr);
+
+          if (element) {
+            _this.state.model.applyTranslation(element, m.translation)
+          }
+        }
+
+        _this.forceUpdate();
       },
+
       presence: function(m) {
         setTimeout(getRoster, 100);
       },
+
       connect: getRoster(),
       //uuid: this.props.userId,
       heartbeat: 15//, // Consider user left after 15 seconds
@@ -125,16 +135,22 @@ module.exports = React.createClass({
   },
 
   handleEdit: function(text) {
-    var newTrans = [
-      this.state.selectedAddr,
-      [{text: text, userId: 'current user'}]
-    ];
-    var element = this.state.model.getByAddress(this.state.selectedAddr);
+    var newRev = new Revision({
+      id: this.props.translationId,
+      addr: this.state.selectedAddr,
+      text: text,
+      userId: this.state.user.id
+    })
 
-    if (element) {
-      this.state.model.applyTranslation(element, newTrans)
-    }
-    this.forceUpdate();
+    // newRev.save({patch: true});
+
+    pubnub.publish({
+      channel: this.props.translationId,
+      message: {
+        type: 'newRevision',
+        translation: newRev.toJSON()
+      }
+    });
   },
 
   handleEditCancel: function() {
@@ -146,9 +162,10 @@ module.exports = React.createClass({
     var element = this.state.model.rootElement;
 
     if (this.state.selectedAddr) {
+      var selectedElement = this.state.model.getByAddress(this.state.selectedAddr);
       form =
       <div className="translatr__form">
-        <EditForm onCancel={this.handleEditCancel} onEdit={this.handleEdit} ref="editForm" />
+        <EditForm element={selectedElement} onCancel={this.handleEditCancel} onEdit={this.handleEdit} ref="editForm" />
       </div>;
     }
 
