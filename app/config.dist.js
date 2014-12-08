@@ -19,7 +19,7 @@ var config = module.exports = {
   pubnub: {
     'ssl': true,  // <- enable TLS Tunneling over TCP
     'publish_key': 'pub-c-7ddd488b-c7c9-42e2-93d5-ed4765eddfb0',
-    'subscribe_key': 'demo'
+    'subscribe_key': 'sub-c-7e4988ce-7d7d-11e4-bfb6-02ee2ddab7fe'
   }
 };
 

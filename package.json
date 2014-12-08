@@ -8,7 +8,7 @@
     "dist": "NODE_ENV=production gulp dist"
   },
   "browserify-shim": {
-    "pubnub": "global:PUBNUB"
+    "pubnub": "global:pubnub"
   },
   "devDependencies": {
     "browserify": "^5.12.1",

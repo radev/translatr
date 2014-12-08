@@ -68,10 +68,12 @@ router.put('/t/:id', function(req, res, next) {
         return next();
       }
       console.log(pair);
-      return db.addSentenceTranslation(translationId, pair[0], pair[1]);
+      return true;//return db.addSentenceTranslation(translationId, pair[0], pair[1]);
     })
     .then(function() {
-      pubnub.publishSentenceTranslation(translationId, pair[0], pair[1]);
+      return pubnub.publishSentenceTranslation(translationId, pair[0], pair[1]);
+    })
+    .then(function(msg) {
       res.sendStatus(204);
     });
 
