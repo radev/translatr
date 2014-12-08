@@ -143,14 +143,6 @@ module.exports = React.createClass({
     })
 
     newRev.save();
-
-    pubnub.publish({
-      channel: this.props.translationId,
-      message: {
-        type: 'newRevision',
-        translation: newRev.toJSON()
-      }
-    });
   },
 
   handleEditCancel: function() {
