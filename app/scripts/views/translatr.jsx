@@ -78,7 +78,7 @@ module.exports = React.createClass({
         }
 
         if (m.type === 'newRevision') {
-          var element = _this.state.model.getByAddress(_this.state.selectedAddr);
+          var element = _this.state.model.getByAddress(m.translation[0]);
 
           if (element) {
             _this.state.model.applyTranslation(element, m.translation)
