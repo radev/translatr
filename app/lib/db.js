@@ -180,14 +180,14 @@ module.exports.saveUser = function(user, opts) {
 
 module.exports.generateTestRecord = function() {
   var s = ['So if you’re going to propose in the near future, don’t worry if you can’t afford a massive engagement ring. ',
-          'A recent study suggests that the bigger the ring is, the shorter the marriage will be. ',
-          'Economics professors at Emory University in America have shown that bigger isn’t always better. \n\n',
+          'A recent study suggests that the bigger the ring is, the shorter the marriage will be. \n\n',
+          'Economics professors at Emory University in America have shown that bigger isn’t always better. ',
 
-          '* In fact, men who spend between £1200 – £2000 on an engagement ring are actually 1.3 times more likely to divorce, ',
-          'than those who spend between £300 – £1200. \n',
-          '* Of course, these statistics don’t prove that a large ring is the cause of the problem.\n\n',
+          'In fact, men who spend between £1200 – £2000 on an engagement ring are actually 1.3 times more likely to divorce, ',
+          'than those who spend between £300 – £1200. \n\n',
+          'Of course, these statistics don’t prove that a large ring is the cause of the problem.\n',
 
-          'They simply show a correlation?!!!\n',
+          'They simply show a correlation.\n',
           'However it seems clear that if you place more importance on the cost of the ring, than the man you’re about to marry, ',
           'it’s not a promising sign. \n',
           'Do you think the size of an engagement ring is important?'];
@@ -199,10 +199,14 @@ module.exports.generateTestRecord = function() {
             [ 'para',
               ['sentence', 'So if you’re going to propose in the near future, don’t worry if you can’t afford a massive engagement ring.'],
               ['sentence', 'A recent study suggests that the bigger the ring is, the shorter the marriage will be.'],
-              ['sentence', 'Economics professors at Emory University in America have shown that bigger isn’t always better. ' ]
             ],
             [ 'para',
-              ['sentence', 'They simply show a correlation?!!!'],
+              ['sentence', 'Economics professors at Emory University in America have shown that bigger isn’t always better. ' ],
+              ['sentence', 'In fact, men who spend between £1200 – £2000 on an engagement ring are actually 1.3 times more likely to divorce, than those who spend between £300 – £1200. ' ],
+            ],
+            [ 'para',
+              ['sentence', 'Of course, these statistics don’t prove that a large ring is the cause of the problem.'],
+    ['sentence', 'They simply show a correlation.'],
               ['sentence', 'However it seems clear that if you place more importance on the cost of the ring, than the man you’re about to marry, it’s not a promising sign.'],
               ['sentence', 'Do you think the size of an engagement ring is important?']
             ]

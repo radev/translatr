@@ -38,7 +38,7 @@ module.exports = React.createClass({
 
       this.state.model.applyTranslations();
       this.setState({
-        selectedAddr: [1,1,2]
+        selectedAddr: null
       });
     }, this);
 
@@ -69,7 +69,7 @@ module.exports = React.createClass({
         console.log('>>> incomimng', m);
 
         if (m.type==='select') {
-          var user = _.find(_this.users, function(user) {
+          var user = _.find(_this.state.users, function(user) {
             return m.userId===user.id;
           });
           if (user) {
@@ -98,16 +98,15 @@ module.exports = React.createClass({
       //state: this.state.user.toJSON()
     });
 
+    this.sendState();
+  },
+
+  sendState: function() {
     pubnub.state({
       channel: this.props.translationId,
       uuid: this.props.userId,
       state: this.state.user.toJSON(),
-      callback: function(m) {
-        console.log(m)
-      },
-      error: function(m) {
-        console.log(m)
-      }
+      callback: function() {}
     });
   },
 
@@ -140,13 +139,14 @@ module.exports = React.createClass({
       addr: this.state.selectedAddr,
       text: text,
       userId: this.state.user.id
-    })
+    });
 
     newRev.save();
   },
 
   handleEditCancel: function() {
-    this.setState({ selectedAddr: null });
+    this.state.user.selectedAddr = null;
+    this.setState({ selectedAddr: null, user: this.state.user });
   },
 
   render: function() {
