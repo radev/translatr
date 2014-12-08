@@ -36,7 +36,7 @@ var EditForm = React.createClass({
           {element.originalText}
         </div>
         <textarea ref="text" placeholder="Enter you translation here" value={this.state.text} onChange={this.onTextChange}></textarea>
-        <div>
+        <div className="revisions">
           Revisions: {element.revisions.length}
         </div>
 

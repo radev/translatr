@@ -66,15 +66,8 @@ module.exports = React.createClass({
     pubnub.subscribe({
       channel: this.props.translationId,
       message: function(m){
-<<<<<<< Updated upstream
         console.log('>>> incomimng', m);
 
-=======
-        /*
-         {type: 'newRevision', addr: [1,1,1], revision: RevisionModel json}
-         */
-        console.log('>>> incomimng', m);
->>>>>>> Stashed changes
         if (m.type==='select') {
           var user = _.find(_this.users, function(user) {
             return m.userId===user.id;
@@ -85,7 +78,6 @@ module.exports = React.createClass({
         }
 
         if (m.type === 'newRevision') {
-<<<<<<< Updated upstream
           var element = _this.state.model.getByAddress(m.translation[0]);
 
           if (element) {
@@ -93,10 +85,6 @@ module.exports = React.createClass({
           }
         }
 
-=======
-          console.log(m);
-        }
->>>>>>> Stashed changes
         _this.forceUpdate();
       },
 
