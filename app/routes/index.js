@@ -68,7 +68,7 @@ router.put('/t/:id', function(req, res, next) {
         return next();
       }
       console.log(pair);
-      return true;//return db.addSentenceTranslation(translationId, pair[0], pair[1]);
+      return db.addSentenceTranslation(translationId, pair[0], pair[1]);
     })
     .then(function() {
       return pubnub.publishSentenceTranslation(translationId, pair[0], pair[1]);

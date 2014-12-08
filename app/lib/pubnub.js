@@ -9,8 +9,7 @@ var pubnub = makePubnub(config);
 module.exports.publishSentenceTranslation = function(channelId, sentenceAddr, sentenceTranslation) {
   var message = {
     type: 'newRevision',
-    addr: sentenceAddr,
-    revision: sentenceTranslation
+    translation: [sentenceAddr, sentenceTranslation]
   };
   return new Promise(function(resolve, reject) {
     pubnub.publish({
