@@ -52,7 +52,7 @@ router.get('/t/d/:id', function(req, res, next) {
     });
 });
 
-router.patch('/t/:id', function(req, res, next) {
+router.put('/t/:id', function(req, res, next) {
   var translationId = req.params.id;
   var pair = req.body;
   if (!util.isArray(pair) || pair.length !== 2) {
