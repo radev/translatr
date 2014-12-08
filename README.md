@@ -2,6 +2,8 @@ Translatr
 =========
 Quick translation tool for people.
 
+<a href="http://www.youtube.com/watch?v=OG2kpbo2Huo" target="_blank"><img src="https://img-fotki.yandex.ru/get/9105/1770335.0/0_9d3d5_8164d387_L.jpg" width="500" height="303" border="0"/></a>
+
 Probject for [Global Hackathon](https://koding.com/Hackathon) by [BlackCat Team](https://github.com/koding/global.hackathon/blob/master/Teams/BlackCat/ABOUT.md)
 
 Our technological stack
