@@ -77,6 +77,9 @@ var Translation = AmpersandModel.extend({
     }
 
     revs.forEach(function(rev){
+      if (_.isArray(rev)){
+        rev = rev[0];
+      }
       result.push( new Revision({
         addr: addr.slice(),
         text: rev.text,
