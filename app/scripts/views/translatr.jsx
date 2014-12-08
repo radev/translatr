@@ -142,7 +142,7 @@ module.exports = React.createClass({
       userId: this.state.user.id
     })
 
-    // newRev.save({patch: true});
+    // newRev.save();
 
     pubnub.publish({
       channel: this.props.translationId,
